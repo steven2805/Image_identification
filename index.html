@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Loading Tenserflow -->
   <script src="https://unpkg.com/@tensorflow/tfjs"></script>
   <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+  <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
 
   <title>Image Classification</title>
 </head>
 <body>
-  <div id="console"></div>
+  <div id="console" align="center"></div>
     <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
 
+    <button id="class-a">Add A</button>
+    <button id="class-b">Add B</button>
+    <button id="class-c">Add C</button>
+    <fieldset>
+      <h3>Output/Result</h3>
+    <div id="Output"</div>
+    </fieldset>
 
-
-   <img id="img" crossorigin src="https://i.imgur.com/JLUvsxa.jpg" width=227 height=227/>
   
   <script src="index.js"></script>
 </body>

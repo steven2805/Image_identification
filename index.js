@@ -1,5 +1,6 @@
-let net;
+const classifier = knnClassifier.create();
 const webcamElement = document.getElementById('webcam');
+let net;
 
 async function setupWebcam() {
   return new Promise((resolve, reject) => {
@@ -23,23 +24,37 @@ async function setupWebcam() {
 
 
 async function app() {
-  console.log('Loading mobilenet..');
+  console.log('Load mobilenet');
 
   // Load the model.
   net = await mobilenet.load();
-  console.log('Sucessfully loaded model');
+  console.log('Sucess loaded model');
   
   await setupWebcam();
+
+  const addExample = classid => {
+    const activation = net.infer(webcamElement,'conv_preds');
+    classifier.addExample(activation,classid);
+  };
+
+  //Button clicky 
+  document.getElementById('class-a').addEventListener('click', () => addExample(0));
+  document.getElementById('class-b').addEventListener('click', () => addExample(1));
+  document.getElementById('class-c').addEventListener('click', () => addExample(2));
+
+
   while (true) {
-    const result = await net.classify(webcamElement);
+    if(classifier.getNumClasses() > 0){
+      const activation = net.infer(webcamElement,'conv_preds');
+      const result = await classifier.predictClass(activation);
+      const classes = ['A','B','C'];
 
-    document.getElementById('console').innerText = `
-      prediction: ${result[0].className}\n
-      probability: ${result[0].probability}
+
+    document.getElementById('Output').innerText = `
+      prediction: ${classes[result.classIndex]}\n
+      probability: ${result.confidences[result.classIndex]}
     `;
-
-    // Give some breathing room by waiting for the next animation frame to
-    // fire.
+    }
     await tf.nextFrame();
   }
 
