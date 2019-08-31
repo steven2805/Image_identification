@@ -1,19 +1,20 @@
 let net;
 const webcamElement = document.getElementById('webcam');
 
-async function setupwebcam(){
-  return new Promise((resolve,reject) => {
+async function setupWebcam() {
+  return new Promise((resolve, reject) => {
     const navigatorAny = navigator;
-    navigator.getUserMedia = navigator.getUserMedia || navigatorAny.webkitGetUserMedia || navigatorAny.mozGetUserMedia || navigatorAny.msGetUSerMedia;
-    if(navigator.getUserMedia){
-      navigator.getUserMedia({Video: true},
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigatorAny.webkitGetUserMedia || navigatorAny.mozGetUserMedia ||
+        navigatorAny.msGetUserMedia;
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({video: true},
         stream => {
           webcamElement.srcObject = stream;
-          webcamElement.addEventListener('loadeddata', () => resolve(),false);
-
+          webcamElement.addEventListener('loadeddata',  () => resolve(), false);
         },
-        error = reject());
-    } else{
+        error => reject());
+    } else {
       reject();
     }
   });
@@ -21,18 +22,24 @@ async function setupwebcam(){
 
 
 
-async function app(){
-  console.log('Loading mobile.net !')
+async function app() {
+  console.log('Loading mobilenet..');
 
+  // Load the model.
   net = await mobilenet.load();
-  console.log("load success");
-
-  await setupwebcam();
-  while (true){
+  console.log('Sucessfully loaded model');
+  
+  await setupWebcam();
+  while (true) {
     const result = await net.classify(webcamElement);
 
-    document.getElementById('console').innerText = 'prediction: ${result[0].className\n probability: ${result[0].probability}';
+    document.getElementById('console').innerText = `
+      prediction: ${result[0].className}\n
+      probability: ${result[0].probability}
+    `;
 
+    // Give some breathing room by waiting for the next animation frame to
+    // fire.
     await tf.nextFrame();
   }
 

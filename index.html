@@ -3,16 +3,18 @@
 <head>
   <!-- Loading Tenserflow -->
   <script src="https://unpkg.com/@tensorflow/tfjs"></script>
-  <script src="https://unpkg.com/@tenserflow-models/mobilenet"></script>
+  <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+
   <title>Image Classification</title>
 </head>
 <body>
-  <div id="console">
-    <video autoplay playsinline muted id="webcam" width=224 heigth=224></video>
+  <div id="console"></div>
+    <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
+
 
 
    <img id="img" crossorigin src="https://i.imgur.com/JLUvsxa.jpg" width=227 height=227/>
-  </div>
+  
   <script src="index.js"></script>
 </body>
 </html>
