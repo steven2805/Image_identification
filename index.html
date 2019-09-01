@@ -1,6 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  .btn-group button {
+    background-color: #4CAF50;
+    border: 1px solid black; 
+    color: white; 
+    padding: 15px 30px; 
+    cursor: pointer; 
+    float: center; 
+  }
+
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  
+  .btn-group button:hover {
+    background-color: #3e8e41;
+  }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #334;
+  }
+
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  </style>
   <script src="https://unpkg.com/@tensorflow/tfjs"></script>
   <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
   <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
@@ -8,15 +58,22 @@
   <title>Image Classification</title>
 </head>
 <body>
-  <div id="console"></div>
+<!-- Still to be Implemented -->
+  <div class="topnav">
+    <a>Image Classifier</a>
+    <a class="active" href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+  </div>
+
+
 <div align="center">   
    <video autoplay playsinline muted id="webcam" width="400" height="400"></video>
 </div>
 
  
-
- 
-  <div align="center">
+  <div align="center"class="btn-group">
     <button id="class-a">Add A</button>
     <button id="class-b">Add B</button>
     <button id="class-c">Add C</button>
